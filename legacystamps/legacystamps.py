@@ -1,16 +1,11 @@
 #!/usr/bin/env python
 ''' Simple Python library to download postage stamps of the Legacy Survey'''
-__version__ = 'v0.1'
+__version__ = 'v1.0'
 __author__ = 'Frits Sweijen'
-
-import sys
-
-from tqdm import tqdm
-
-import requests
 
 import os
 import sys
+
 import tqdm
 import requests
 
@@ -70,32 +65,26 @@ class FileDownloader(object):
         base_path = os.path.abspath(os.path.dirname(__file__))
         target_dest_dir = os.path.join(base_path, local_filename) if not target_dir else os.path.join(target_dir, local_filename)
         with open(target_dest_dir, 'wb') as fp:
-            #for chunk in tqdm.tqdm(req.iter_content(chunk_size=chunk_size), total=num_bars, unit='KB', desc=local_filename, leave=True, file=sys.stdout):
             for chunk in tqdm.tqdm(req.iter_content(chunk_size=chunk_size), total=num_bars, unit='KB', leave=True, file=sys.stdout):
                 fp.write(chunk)
 
         return target_dest_dir
 
-def download(ra, dec, bands, size=0.01, mode='jpeg', layer='dr8', pixscale=0.262):
+def download(ra, dec, bands, size=0.01, mode='jpeg', layer='dr8', pixscale=0.262, useavm=False):
     size_pix = int(size * 3600 / pixscale)
     url = f'https://www.legacysurvey.org/viewer/{mode:s}-cutout/?ra={ra:f}&dec={dec:f}&layer={layer:s}&pixscale=0.262&bands={bands:s}&size={size_pix:d}'
     fname = f'legacystamps_{ra:f}_{dec:f}_{layer:s}.{mode:s}'
     dl = FileDownloader()
     dl.download_file(url, filename=fname)
+    print(f'Cutout saved to {fname:s}.')
 
 if __name__ == '__main__':
-    #print('Legacystamps {:s} by {:s}'.format(__version__, __author__))
     import argparse
     parser = argparse.ArgumentParser(description='Legacystamps {:s} by {:s}'.format(__version__, __author__))
     parser.add_argument('--ra', type=float, required=True, help='Right ascension of cutout centre in degrees.')
     parser.add_argument('--dec', type=float, required=True, help='Declination of cutout centre in degrees.')
     parser.add_argument('--bands', type=str, required=True, help='Bands to download. Allowed values are g, r and z. Multiple bands can be specified as a single string. In the case of a JPEG image a colour image will be generated. In the case of a FITS image a FITS cube will be downloaded.')
-    parser.add_argument('--mode', type=str, required=False, default='jpeg', help='Image type to retrieve. Can be "jpeg", "fits" or "both" to retrieve either a JPEG image, FITS file or both.')
+    parser.add_argument('--mode', type=str, required=False, default='jpeg', help='Image type to retrieve. Can be "jpeg", "fits" or "both" to retrieve either a JPEG image, FITS file or both. Default value is jpeg.')
     parser.add_argument('--size', type=float, required=False, default=0.01, help='Cutout size in degrees.')
     args = parser.parse_args()
-    #ra = 190.1086
-    #dec = 1.2005
-    #ra = 161.598
-    #dec = 57.695
-    #bands = 'grz'
     download(args.ra, args.dec, args.bands, mode=args.mode, size=args.size)
