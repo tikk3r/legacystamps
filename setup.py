@@ -19,7 +19,7 @@ setuptools.setup(
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Operating System :: OS Independent',
     ],
-    python_requires='>=2.7,>=3.6',
+    python_requires='>=2.7, >=3.6',
     install_requires=[
         'requests',
         'tqdm',
