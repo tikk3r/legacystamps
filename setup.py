@@ -5,7 +5,7 @@ with open('README.md', 'r') as f:
 
 setuptools.setup(
     name='legacystamps',
-    version='1.0.0',
+    version='1.0.2',
     author='Frits Sweijen',
     author_email='frits.sweijen@gmail.com',
     description='Small module to retrieve cutouts from the Legacy Survey.',
@@ -14,11 +14,12 @@ setuptools.setup(
     url='https://github.com/tikk3r/legacystamps',
     packages=setuptools.find_packages(),
     classifiers=[
+        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Operating System :: OS Independent',
     ],
-    python_requires='>=3.6',
+    python_requires='>=2.7,>=3.6',
     install_requires=[
         'requests',
         'tqdm',
