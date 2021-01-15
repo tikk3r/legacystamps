@@ -72,8 +72,8 @@ class FileDownloader(object):
 
 def download(ra, dec, bands, size=0.01, mode='jpeg', layer='dr8', pixscale=0.262, useavm=False):
     size_pix = int(size * 3600 / pixscale)
-    url = f'https://www.legacysurvey.org/viewer/{mode:s}-cutout/?ra={ra:f}&dec={dec:f}&layer={layer:s}&pixscale=0.262&bands={bands:s}&size={size_pix:d}'
-    fname = f'legacystamps_{ra:f}_{dec:f}_{layer:s}.{mode:s}'
+    url = 'https://www.legacysurvey.org/viewer/{mode:s}-cutout/?ra={ra:f}&dec={dec:f}&layer={layer:s}&pixscale=0.262&bands={bands:s}&size={size_pix:d}'.format(mode, ra, dec, layer, bands, size_pix)
+    fname = 'legacystamps_{ra:f}_{dec:f}_{layer:s}.{mode:s}'.format(ra, dec, layer, mode)
     dl = FileDownloader()
     dl.download_file(url, filename=fname)
     print(f'Cutout saved to {fname:s}.')
