@@ -72,11 +72,12 @@ class FileDownloader(object):
 
 def download(ra, dec, bands, size=0.01, mode='jpeg', layer='dr8', pixscale=0.262, useavm=False):
     size_pix = int(size * 3600 / pixscale)
-    url = 'https://www.legacysurvey.org/viewer/{mode:s}-cutout/?ra={ra:f}&dec={dec:f}&layer={layer:s}&pixscale=0.262&bands={bands:s}&size={size_pix:d}'.format(mode, ra, dec, layer, bands, size_pix)
-    fname = 'legacystamps_{ra:f}_{dec:f}_{layer:s}.{mode:s}'.format(ra, dec, layer, mode)
+    url = 'https://www.legacysurvey.org/viewer/{mode:s}-cutout/?ra={ra:f}&dec={dec:f}&layer={layer:s}&pixscale=0.262&bands={bands:s}&size={size_pix:d}'.format(mode=mode, ra=ra, dec=dec, layer=layer, bands=bands, size_pix=size_pix)
+    fname = os.getcwd() + '/legacystamps_{ra:f}_{dec:f}_{layer:s}.{mode:s}'.format(ra=ra, dec=dec, layer=layer, mode=mode)
     dl = FileDownloader()
     dl.download_file(url, filename=fname)
-    print(f'Cutout saved to {fname:s}.')
+    print('Cutout saved to {fname:s}.'.format(fname=fname))
+    return fname
 
 if __name__ == '__main__':
     import argparse
