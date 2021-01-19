@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: legacystamps
-Version: 1.0.2
+Version: 1.0.3
 Summary: Small module to retrieve cutouts from the Legacy Survey.
 Home-page: https://github.com/tikk3r/legacystamps
 Author: Frits Sweijen
@@ -9,10 +9,20 @@ License: UNKNOWN
 Description: # legacystamps
         A tiny Python module to allow easy retrieval of a cutout from the Legacy survey.
         
+        ## Installation
+        This package can be installed simply by running `pip install legacystamps`. It can also  be installed manually with `python setup.py install`.
+        
+        ## Requirements
+        The following packages are required:
+        
+        * requests
+        * tqdm
+        
+        
 Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 2
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
 Classifier: Operating System :: OS Independent
-Requires-Python: >=2.7,>=3.6
+Requires-Python: >=2.7.5
 Description-Content-Type: text/markdown

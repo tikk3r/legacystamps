@@ -9,6 +9,7 @@ setuptools.setup(
     author='Frits Sweijen',
     author_email='frits.sweijen@gmail.com',
     description='Small module to retrieve cutouts from the Legacy Survey.',
+    scripts=['legacystamps/legacystamps.py'],
     long_description=long_desc,
     long_description_content_type='text/markdown',
     url='https://github.com/tikk3r/legacystamps',

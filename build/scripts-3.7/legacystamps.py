@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/home/frits/anaconda3/bin/python
 ''' Simple Python library to download postage stamps of the Legacy Survey'''
 __version__ = 'v1.0.3'
 __author__ = 'Frits Sweijen'
