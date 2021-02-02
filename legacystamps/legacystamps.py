@@ -87,5 +87,6 @@ if __name__ == '__main__':
     parser.add_argument('--bands', type=str, required=True, help='Bands to download. Allowed values are g, r and z. Multiple bands can be specified as a single string. In the case of a JPEG image a colour image will be generated. In the case of a FITS image a FITS cube will be downloaded.')
     parser.add_argument('--mode', type=str, required=False, default='jpeg', help='Image type to retrieve. Can be "jpeg", "fits" or "both" to retrieve either a JPEG image, FITS file or both. Default value is jpeg.')
     parser.add_argument('--size', type=float, required=False, default=0.01, help='Cutout size in degrees.')
+    parser.add_argument('--layer', type=str, required=False, default='dr8', help='Layer to make a cutout from. Default value is dr8. Examples are dr8, sdss or unwise-neo4. See Legacy documentation for all possibilies.')
     args = parser.parse_args()
-    download(args.ra, args.dec, args.bands, mode=args.mode, size=args.size)
+    download(args.ra, args.dec, args.bands, mode=args.mode, size=args.size, layer=args.layer)
