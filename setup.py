@@ -5,7 +5,7 @@ with open('README.md', 'r') as f:
 
 setuptools.setup(
     name='legacystamps',
-    version='1.0.3',
+    version='1.0.4',
     author='Frits Sweijen',
     author_email='frits.sweijen@gmail.com',
     description='Small module to retrieve cutouts from the Legacy Survey.',
