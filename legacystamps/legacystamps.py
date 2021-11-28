@@ -5,10 +5,10 @@ __author__ = 'Frits Sweijen'
 
 import os
 import sys
+import warnings
 
 import tqdm
 import requests
-
 
 class FileDownloader(object):
     ''' From https://medium.com/better-programming/python-progress-bars-with-tqdm-by-example-ce98dbbc9697
@@ -57,7 +57,7 @@ class FileDownloader(object):
             raise ValueError('Invalid target_dir={} specified'.format(target_dir))
         local_filename = self.get_url_filename(url) if not filename else filename
 
-        req = requests.get(url, stream=True)
+        req = requests.get(url, stream=True, verify=True)
         file_size = int(req.headers['Content-Length'])
         chunk_size = 1024  # 1 MB
         num_bars = int(file_size / chunk_size)
@@ -70,9 +70,24 @@ class FileDownloader(object):
 
         return target_dest_dir
 
-def download(ra, dec, bands, size=0.01, mode='jpeg', layer='ls-dr9', pixscale=0.262, useavm=False):
+def download(ra, dec, bands, size=0.01, mode='jpeg', layer='ls-dr9', pixscale=0.262, useavm=False, autoscale=False):
     size_pix = int(size * 3600 / pixscale)
-    url = 'https://www.legacysurvey.org/viewer/{mode:s}-cutout/?ra={ra:f}&dec={dec:f}&layer={layer:s}&pixscale=0.262&bands={bands:s}&size={size_pix:d}'.format(mode=mode, ra=ra, dec=dec, layer=layer, bands=bands, size_pix=size_pix)
+    dlpixscale = pixscale
+    dlsize_pix = size_pix
+    if (size_pix > 3000) and autoscale:
+        # Jump to the next available pixel size by scaling from the (approximate) native pixel scale.
+        new_pixscale = pixscale
+        new_size_pix = int(size * 3600 / new_pixscale)
+        while new_size_pix > 3000:
+            new_pixscale += 0.262
+            new_size_pix = int(size * 3600 / new_pixscale)
+        warnings.warn('Image size of {:.2f} deg with pixel scale {:.3f} exceeds server limit of 3000 pixels! Automatically adjusting pixel scale to {:.3f} giving {:d} pixels.'.format(size, pixscale, new_pixscale, new_size_pix), Warning, stacklevel=2)
+        dlpixscale = new_pixscale
+        dlsize_pix = new_size_pix
+    elif (size_pix > 3000):
+        warnings.warn('Image size of {:.2f} deg with pixel scale {:.3f} exceeds server limit of 3000 pixels! Image will be truncated!'.format(size, pixscale), Warning, stacklevel=2)
+    url = 'https://www.legacysurvey.org/viewer/{mode:s}-cutout/?ra={ra:f}&dec={dec:f}&layer={layer:s}&pixscale={pixscale:.3f}&bands={bands:s}&size={size_pix:d}'.format(mode=mode, ra=ra, dec=dec, layer=layer, bands=bands, pixscale=dlpixscale, size_pix=dlsize_pix)
+    print('URL to obtain cutout: ' + url)
     fname = os.getcwd() + '/legacystamps_{ra:f}_{dec:f}_{layer:s}.{mode:s}'.format(ra=ra, dec=dec, layer=layer, mode=mode)
     dl = FileDownloader()
     dl.download_file(url, filename=fname)
@@ -88,5 +103,6 @@ if __name__ == '__main__':
     parser.add_argument('--mode', type=str, required=False, default='jpeg', help='Image type to retrieve. Can be "jpeg", "fits" or "both" to retrieve either a JPEG image, FITS file or both. Default value is jpeg.')
     parser.add_argument('--size', type=float, required=False, default=0.01, help='Cutout size in degrees.')
     parser.add_argument('--layer', type=str, required=False, default='ls-dr9', help='Layer to make a cutout from. Default value is ls-dr9. Examples are ls-dr9, sdss or unwise-neo4. See Legacy documentation for all possibilies.')
+    parser.add_argument('--autoscale', type=bool, required=False, default=False, dest='autoscale', action='store_true', help='Automatically change the pixel size if the resulting image would exceed the server maximum of 3000x3000 pixels.')
     args = parser.parse_args()
-    download(args.ra, args.dec, args.bands, mode=args.mode, size=args.size, layer=args.layer)
+    download(args.ra, args.dec, args.bands, mode=args.mode, size=args.size, layer=args.layer, autoscale=args.autoscale)
