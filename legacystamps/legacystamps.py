@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 ''' Simple Python library to download postage stamps of the Legacy Survey'''
-__version__ = 'v1.1.0'
+__version__ = 'v1.1.1'
 __author__ = 'Frits Sweijen'
 
 import os
@@ -85,7 +85,7 @@ def download(ra, dec, bands, size=0.01, mode='jpeg', layer='ls-dr9', pixscale=0.
         dlpixscale = new_pixscale
         dlsize_pix = new_size_pix
     elif (size_pix > 3000):
-        warnings.warn('Image size of {:.2f} deg with pixel scale {:.3f} exceeds server limit of 3000 pixels! Image will be truncated!'.format(size, pixscale), Warning, stacklevel=2)
+        warnings.warn('Image size of {:.2f} deg with pixel scale {:.3f} exceeds server limit of 3000 pixels! Image will be truncated! Use --autoscale or pass autoscale=True to automatically switch pixel scales.'.format(size, pixscale), Warning, stacklevel=2)
     url = 'https://www.legacysurvey.org/viewer/{mode:s}-cutout/?ra={ra:f}&dec={dec:f}&layer={layer:s}&pixscale={pixscale:.3f}&bands={bands:s}&size={size_pix:d}'.format(mode=mode, ra=ra, dec=dec, layer=layer, bands=bands, pixscale=dlpixscale, size_pix=dlsize_pix)
     print('URL to obtain cutout: ' + url)
     fname = os.getcwd() + '/legacystamps_{ra:f}_{dec:f}_{layer:s}.{mode:s}'.format(ra=ra, dec=dec, layer=layer, mode=mode)
