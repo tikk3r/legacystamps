@@ -1,2 +1,7 @@
 *.fits
 *.jpeg
+*.pyc
+*.egg-info
+__pycache__
+build
+dist

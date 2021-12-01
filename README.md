@@ -1,5 +1,6 @@
 # legacystamps
 ![CI](https://github.com/tikk3r/legacystamps/actions/workflows/integration-tests.yml/badge.svg)
+
 A tiny Python module to allow easy retrieval of a cutout from the Legacy survey.
 
 ## Installation
