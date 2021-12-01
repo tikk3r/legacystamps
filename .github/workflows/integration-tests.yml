@@ -40,4 +40,5 @@ jobs:
       run: |
         pwd
         ls
-        pytest -Wignore tests
+        ls tests
+        pytest -Wignore $PWD/tests
