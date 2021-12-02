@@ -70,7 +70,28 @@ class FileDownloader(object):
 
         return target_dest_dir
 
-def download(ra, dec, bands, size=0.01, mode='jpeg', layer='ls-dr9', pixscale=0.262, useavm=False, autoscale=False):
+def download(ra, dec, bands, size=0.01, mode='jpeg', layer='ls-dr9', pixscale=0.262, autoscale=False, ddir=''):
+    """
+    Stream downloads files via HTTP
+    :param ra: Right ascension to centre cutout on.
+    :type ra: float
+    :param dec: Declination to centre cutout on.
+    :type dec: float
+    :param bands: Band(s) to download. Multiple bands can be given as a single string, e.g. grz.
+    :type bands: str
+    :param mode: What file type to download. Can be jpeg or fits.
+    :type mode: str
+    :param layer: Layer to download. Default is ls-dr9. See the Legacy Survey documentation for possible layers.
+    :type layer: str
+    :param pixscale: Pixel scale to download. Set to 0.262 by default.
+    :type pixscale: float
+    :param autoscale: Automatically scale image size and pixel scale if cutout excees server capacity.
+    :type autoscale: bool
+    :param ddir: Directory to store downloaded files in.
+    :type ddir: str
+    :return: Filename of the downloaded file.
+    :rtype: str
+    """
     size_pix = int(size * 3600 / pixscale)
     dlpixscale = pixscale
     dlsize_pix = size_pix
@@ -88,7 +109,10 @@ def download(ra, dec, bands, size=0.01, mode='jpeg', layer='ls-dr9', pixscale=0.
         warnings.warn('Image size of {:.2f} deg with pixel scale {:.3f} exceeds server limit of 3000 pixels! Image will be truncated! Use --autoscale or pass autoscale=True to automatically switch pixel scales.'.format(size, pixscale), Warning, stacklevel=2)
     url = 'https://www.legacysurvey.org/viewer/{mode:s}-cutout/?ra={ra:f}&dec={dec:f}&layer={layer:s}&pixscale={pixscale:.3f}&bands={bands:s}&size={size_pix:d}'.format(mode=mode, ra=ra, dec=dec, layer=layer, bands=bands, pixscale=dlpixscale, size_pix=dlsize_pix)
     print('URL to obtain cutout: ' + url)
-    fname = os.getcwd() + '/legacystamps_{ra:f}_{dec:f}_{layer:s}.{mode:s}'.format(ra=ra, dec=dec, layer=layer, mode=mode)
+    if ddir:
+        fname = ddir + '/legacystamps_{ra:f}_{dec:f}_{layer:s}.{mode:s}'.format(ra=ra, dec=dec, layer=layer, mode=mode)
+    else:
+        fname = os.getenv('$PWD') + '/legacystamps_{ra:f}_{dec:f}_{layer:s}.{mode:s}'.format(ra=ra, dec=dec, layer=layer, mode=mode)
     dl = FileDownloader()
     dl.download_file(url, filename=fname)
     print('Cutout saved to {fname:s}.'.format(fname=fname))
@@ -104,5 +128,6 @@ if __name__ == '__main__':
     parser.add_argument('--size', type=float, required=False, default=0.01, help='Cutout size in degrees.')
     parser.add_argument('--layer', type=str, required=False, default='ls-dr9', help='Layer to make a cutout from. Default value is ls-dr9. Examples are ls-dr9, sdss or unwise-neo4. See Legacy documentation for all possibilies.')
     parser.add_argument('--autoscale', type=bool, required=False, default=False, dest='autoscale', action='store_true', help='Automatically change the pixel size if the resulting image would exceed the server maximum of 3000x3000 pixels.')
+    parser.add_argument('--download-dir', type=str, required=False, default='', dest='ddir', help='Directory to store downloaded files. If not given will download to $PWD.')
     args = parser.parse_args()
-    download(args.ra, args.dec, args.bands, mode=args.mode, size=args.size, layer=args.layer, autoscale=args.autoscale)
+    download(args.ra, args.dec, args.bands, mode=args.mode, size=args.size, layer=args.layer, autoscale=args.autoscale, ddir=args.ddir)
