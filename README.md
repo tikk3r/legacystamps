@@ -1,5 +1,8 @@
 # legacystamps
 ![CI](https://github.com/tikk3r/legacystamps/actions/workflows/integration-tests.yml/badge.svg)
+![license](https://img.shields.io/pypi/l/legacystamps?style=plastic)
+![pyversion](https://img.shields.io/pypi/pyversions/legacystamps?style=plastic)
+![pkgversion](https://img.shields.io/pypi/v/legacystamps?style=plastic)
 
 A tiny Python module to allow easy retrieval of a cutout from the Legacy survey.
 
