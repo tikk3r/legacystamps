@@ -5,11 +5,11 @@ with open('README.md', 'r') as f:
 
 setuptools.setup(
     name='legacystamps',
-    version='1.0.4',
+    version='1.2.0',
     author='Frits Sweijen',
     author_email='frits.sweijen@gmail.com',
     description='Small module to retrieve cutouts from the Legacy Survey.',
-    scripts=['legacystamps/legacystamps.py'],
+    scripts=['src/legacystamps/legacystamps.py'],
     long_description=long_desc,
     long_description_content_type='text/markdown',
     url='https://github.com/tikk3r/legacystamps',
