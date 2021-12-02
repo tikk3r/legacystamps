@@ -112,7 +112,8 @@ def download(ra, dec, bands, size=0.01, mode='jpeg', layer='ls-dr9', pixscale=0.
     if ddir:
         fname = ddir + '/legacystamps_{ra:f}_{dec:f}_{layer:s}.{mode:s}'.format(ra=ra, dec=dec, layer=layer, mode=mode)
     else:
-        fname = os.getenv('$PWD') + '/legacystamps_{ra:f}_{dec:f}_{layer:s}.{mode:s}'.format(ra=ra, dec=dec, layer=layer, mode=mode)
+        print('Download directory not specified, downloading to ' + os.getcwd() + ' instead.')
+        fname = os.getcwd() + '/legacystamps_{ra:f}_{dec:f}_{layer:s}.{mode:s}'.format(ra=ra, dec=dec, layer=layer, mode=mode)
     dl = FileDownloader()
     dl.download_file(url, filename=fname)
     print('Cutout saved to {fname:s}.'.format(fname=fname))
