@@ -13,7 +13,8 @@ setuptools.setup(
     long_description=long_desc,
     long_description_content_type='text/markdown',
     url='https://github.com/tikk3r/legacystamps',
-    packages=setuptools.find_packages(),
+    packages=['legacystamps'],
+    package_dir={'':'src'},
     classifiers=[
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 3',
