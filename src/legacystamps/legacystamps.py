@@ -58,6 +58,7 @@ class FileDownloader(object):
         local_filename = self.get_url_filename(url) if not filename else filename
 
         req = requests.get(url, stream=True, verify=True)
+        req.raise_for_status()
         file_size = int(req.headers['Content-Length'])
         chunk_size = 1024  # 1 MB
         num_bars = int(file_size / chunk_size)
