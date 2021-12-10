@@ -2,6 +2,8 @@
 ''' Simple Python library to download postage stamps of the Legacy Survey'''
 __version__ = 'v1.2.1'
 __author__ = 'Frits Sweijen'
+__license__ = 'GPLv3'
+
 
 import os
 import sys
@@ -12,6 +14,20 @@ import requests
 
 class FileDownloader(object):
     ''' From https://medium.com/better-programming/python-progress-bars-with-tqdm-by-example-ce98dbbc9697
+
+    Copyright 2019 tiptapcode Authors. All Rights Reserved.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
     '''
     def get_url_filename(self, url):
         """
@@ -72,8 +88,8 @@ class FileDownloader(object):
         return target_dest_dir
 
 def download(ra, dec, bands, size=0.01, mode='jpeg', layer='ls-dr9', pixscale=0.262, autoscale=False, ddir=''):
-    """
-    Stream downloads files via HTTP
+    """ Stream downloads files via HTTP
+
     :param ra: Right ascension to centre cutout on.
     :type ra: float
     :param dec: Declination to centre cutout on.
