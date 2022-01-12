@@ -94,13 +94,15 @@ def download(ra, dec, bands, size=0.01, mode='jpeg', layer='ls-dr9', pixscale=0.
     :type ra: float
     :param dec: Declination to centre cutout on.
     :type dec: float
+    :param size: Size of the cutout in degrees.
+    :type size: float
     :param bands: Band(s) to download. Multiple bands can be given as a single string, e.g. grz.
     :type bands: str
     :param mode: What file type to download. Can be jpeg or fits.
     :type mode: str
     :param layer: Layer to download. Default is ls-dr9. See the Legacy Survey documentation for possible layers.
     :type layer: str
-    :param pixscale: Pixel scale to download. Set to 0.262 by default.
+    :param pixscale: Pixel scale in arcsec to download. Set to 0.262 by default.
     :type pixscale: float
     :param autoscale: Automatically scale image size and pixel scale if cutout excees server capacity.
     :type autoscale: bool
