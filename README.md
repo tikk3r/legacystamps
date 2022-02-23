@@ -34,6 +34,6 @@ The following packages are required:
 ## Acknowledgements
 If you use legacystamps in your work, please consider acknowledging this package through
 
-  This work made use of the legacystamps package (https://github.com/tikk3r/legacystamps).
-  
+    This work made use of the legacystamps package (https://github.com/tikk3r/legacystamps).
+
 and the acknowledgements associated to https://legacysurvey.org/.
