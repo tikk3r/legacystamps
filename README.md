@@ -1,8 +1,10 @@
 # legacystamps
-![CI](https://github.com/tikk3r/legacystamps/actions/workflows/integration-tests.yml/badge.svg)
-![license](https://img.shields.io/pypi/l/legacystamps?style=flat)
+[![CI](https://github.com/tikk3r/legacystamps/actions/workflows/integration-tests.yml/badge.svg)](https://github.com/tikk3r/legacystamps/actions)
+[![license](https://img.shields.io/pypi/l/legacystamps?style=flat)](https://www.gnu.org/licenses/gpl-3.0.html)
 ![pyversion](https://img.shields.io/pypi/pyversions/legacystamps?style=flat)
-![pkgversion](https://img.shields.io/pypi/v/legacystamps?style=flat)
+[![pkgversion](https://img.shields.io/pypi/v/legacystamps?style=flat)](https://pypi.org/project/legacystamps/)
+[![ascl](https://img.shields.io/badge/ascl-ascl%3A2204.003-blue)](http://ascl.net/2204.003)
+
 
 A tiny Python module to allow easy retrieval of a cutout from the Legacy survey.
 
