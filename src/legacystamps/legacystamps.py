@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 ''' Simple Python library to download postage stamps of the Legacy Survey'''
-__version__ = 'v1.2.1'
+__version__ = 'v1.2.2'
 __author__ = 'Frits Sweijen'
 __license__ = 'GPLv3'
 
