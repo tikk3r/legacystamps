@@ -8,6 +8,8 @@
 
 A tiny Python module to allow easy retrieval of a cutout from the Legacy survey.
 
+**Instead of this package, please consider using the more actively maintained EveryStamp: https://github.com/tikk3r/EveryStamp/**
+
 ## Installation
 This package can be installed simply by running `pip install legacystamps`. It can also  be installed manually with `python setup.py install`.
 
